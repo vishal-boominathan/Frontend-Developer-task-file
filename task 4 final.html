@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Event Handling — Alfido Tech</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent1: #00f5ff;
+      --accent2: #ff00e0;
+      --bg1: #0f2027;
+      --bg2: #203a43;
+      --bg3: #2c5364;
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.2);
+      --text: #e8f6ff;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      transition: background 0.8s ease-in-out;
+    }
+
+    .container {
+      text-align: center;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-6px);
+    }
+
+    h1 {
+      font-size: 2rem;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: #001018;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 0, 224, 0.3), 0 0 20px rgba(0, 245, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 0, 224, 0.5), 0 0 30px rgba(0, 245, 255, 0.5);
+    }
+
+    .color-display {
+      margin-top: 25px;
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .color-display:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .info {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #c7d7e3;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      color: var(--accent1);
+      font-weight: 600;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .footer a {
+      color: var(--accent1);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 JavaScript Event Handling</h1>
+    <p>Click the button below to change the background color to a random gradient. Try hovering, double-clicking, or pressing <span class="highlight">Space</span>!</p>
+
+    <button class="btn" id="changeColorBtn">Change Background</button>
+
+    <div class="color-display" id="colorDisplay">Current Color: #203a43</div>
+
+    <div class="info">
+      <p><strong>Events Demonstrated:</strong></p>
+      <ul style="list-style:none; padding:0;">
+        <li>✔️ <span class="highlight">Click</span> — Change background color</li>
+        <li>✔️ <span class="highlight">Mouseover</span> — Glow animation</li>
+        <li>✔️ <span class="highlight">Double-click</span> — Reset color</li>
+        <li>✔️ <span class="highlight">Keypress (Space)</span> — Trigger color change</li>
+        <li>✔️ <span class="highlight">Clipboard</span> — Copy color code</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      Made with 💙 by <a href="https://www.alfidotech.com" target="_blank">Alfido Tech</a>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('changeColorBtn');
+    const display = document.getElementById('colorDisplay');
+    let currentColor = '#203a43';
+
+    // Generate random hex color
+    function randomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Generate a random gradient background
+    function changeBackground() {
+      const color1 = randomColor();
+      const color2 = randomColor();
+      document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+      currentColor = `${color1} → ${color2}`;
+      display.textContent = `Current Gradient: ${color1} → ${color2}`;
+    }
+
+    // Reset background to default
+    function resetBackground() {
+      document.body.style.background = 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)';
+      display.textContent = 'Reset to default color.';
+    }
+
+    // Copy color to clipboard
+    function copyColor() {
+      navigator.clipboard.writeText(currentColor);
+      display.textContent = `Copied: ${currentColor}`;
+      display.style.color = '#00f5ff';
+      setTimeout(() => display.style.color = '', 1000);
+    }
+
+    // Event Listeners
+    btn.addEventListener('click', changeBackground);
+    btn.addEventListener('mouseover', () => btn.style.boxShadow = '0 0 40px #00f5ff, 0 0 40px #ff00e0');
+    btn.addEventListener('mouseout', () => btn.style.boxShadow = '');
+    btn.addEventListener('dblclick', resetBackground);
+    display.addEventListener('click', copyColor);
+
+    // Keyboard event
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Space') {
+        changeBackground();
+      }
+    });
+  </script>
+</body>
+</html>
