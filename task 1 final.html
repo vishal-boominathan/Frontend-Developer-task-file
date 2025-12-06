@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishal B — Frontend Developer</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0d0f1a;
+      --bg2:#1b1f3a;
+      --accent:#6ea8fe;
+      --white: #ffffff;
+    }
+
+    *{ box-sizing: border-box; }
+
+    html,body{
+      height:100%;
+      background: radial-gradient(1200px 800px at 10% 10%, #1e243f 0%, #0d0f1a 60%);
+      color: var(--white);
+      scroll-behavior: smooth;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .bg-grad{
+      position: fixed;
+      inset:0;
+      background: radial-gradient(900px 600px at 90% -10%, rgba(102,16,242,.25), transparent 60%),
+                  radial-gradient(700px 500px at -10% 90%, rgba(13,110,253,.25), transparent 60%);
+      z-index:-3;
+    }
+    .blob{
+      position: fixed;
+      filter: blur(60px);
+      z-index:-2;
+      opacity:.6;
+      animation: float 18s ease-in-out infinite;
+    }
+    .blob-1{
+      width: 280px; height: 280px;
+      left: -60px; top: 20%;
+      background: linear-gradient(135deg, #6610f2, #0d6efd);
+    }
+    .blob-2{
+      width: 320px; height: 320px;
+      right: -60px; top: 60%;
+      background: linear-gradient(135deg, #20c997, #0dcaf0);
+      animation-delay: -6s;
+    }
+    @keyframes float{
+      0%,100%{ transform: translateY(0) translateX(0) rotate(0deg); }
+      50%{ transform: translateY(-20px) translateX(10px) rotate(3deg); }
+    }
+
+    .glassy{
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 18px;
+    }
+    .glassy-badge{
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff;
+    }
+
+    .navbar.glassy{ margin: 12px; border-radius: 14px; }
+
+    .profile-card .profile-img{
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border: 4px solid rgba(255,255,255,.2);
+    }
+
+    .skill-chip{
+      padding: .6rem 1rem;
+      text-align:center;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .2s ease;
+      user-select: none;
+    }
+    .skill-chip:hover{ transform: translateY(-2px); }
+
+    .project-card{ transition: transform .2s ease, box-shadow .2s ease; }
+    .project-card:hover{ transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+
+    .glass-input{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+    }
+    .glass-input::placeholder{ color: rgba(255,255,255,.6); }
+    .glass-input:focus{ background: rgba(255,255,255,.12); color:#fff; border-color: rgba(255,255,255,.35); box-shadow: 0 0 0 .25rem rgba(13,110,253,.25); }
+
+    .btn-primary{
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      border: none;
+    }
+    .btn-primary:hover{ filter: brightness(1.05); }
+
+    footer{ opacity:.9; }
+
+    @media (max-width: 576px){
+      .navbar.glassy{ margin: 8px; }
+      .profile-card .profile-img{ width: 180px; height: 180px; }
+    }
+
+    header.container { padding-top: 3rem; padding-bottom: 3rem; }
+    section.container { padding-top: 2rem; padding-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <div class="bg-grad" aria-hidden="true"></div>
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark py-3 glassy border-bottom border-white border-opacity-25" aria-label="Primary navigation">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="#"><i class="bi bi-code-slash me-2" aria-hidden="true"></i>Vishal B</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item">
+            <button id="themeToggle" class="btn btn-sm btn-outline-light rounded-pill ms-lg-2" aria-pressed="false" title="Toggle theme">
+              <i id="themeIcon" class="bi bi-moon-stars"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="container py-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-5">
+        <div class="profile-card glassy shadow-lg p-4 text-center" role="region" aria-label="Profile card">
+          <img src="https://cutiedp.com/wp-content/uploads/2025/07/cartoon-girl-dp-28.webp"
+               alt="Vishal B"
+               class="rounded-circle img-fluid mb-3 profile-img">
+          <h1 class="h3 mb-1">Vishal B</h1>
+          <p class="lead text-white-50 mb-3">Frontend Developer</p>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mb-3" aria-hidden="true">
+            <span class="badge rounded-pill text-bg-light text-dark">BS/REG/113462</span>
+            <span class="badge rounded-pill glassy-badge">B.tech CSE • 2028</span>
+            <span class="badge rounded-pill glassy-badge">SRM University</span>
+          </div>
+          <div class="d-flex justify-content-center gap-2">
+            <a href="#projects" class="btn btn-primary rounded-pill" role="button">
+              <i class="bi bi-rocket-takeoff me-1" aria-hidden="true"></i> View Projects
+            </a>
+            <a href="mailto:vishal.01@gmail.com" class="btn btn-outline-light rounded-pill" role="button">
+              <i class="bi bi-envelope me-1" aria-hidden="true"></i> Email Me
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div id="about" class="glassy p-4 p-md-5 shadow-lg" role="region" aria-labelledby="about-heading">
+          <h2 id="about-heading" class="h4 mb-3"><i class="bi bi-person-badge me-2" aria-hidden="true"></i>About</h2>
+          <p class="mb-3">
+            I'm a front-end developer who enjoys crafting clean, accessible, and responsive user interfaces.
+            I work with HTML5, CSS3, JavaScript, and modern frameworks. I love solving UI problems,
+            polishing micro-interactions, and shipping delightful web experiences.
+          </p>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <div class="info d-flex align-items-center gap-2">
+                <i class="bi bi-envelope-open" aria-hidden="true"></i>
+                <a class="link-light link-offset-2" href="mailto:vishal.01@gmail.com">vishal.01@gmail.com</a>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="info d-flex align-items-center gap-2">
+                <i class="bi bi-telephone" aria-hidden="true"></i>
+                <a class="link-light link-offset-2" href="tel:+919999999999">+91 9999999999</a>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="info d-flex align-items-center gap-2">
+                <i class="bi bi-gender-female" aria-hidden="true"></i>
+                <span>Male</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="info d-flex align-items-center gap-2">
+                <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                <span>Chennai, India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="skills" class="container pb-5" aria-label="Skills section">
+    <div class="glassy p-4 p-md-5 shadow-lg">
+      <h2 class="h4 mb-4"><i class="bi bi-stars me-2" aria-hidden="true"></i>Skills</h2>
+      <div class="row g-3">
+        <div class="col-md-3 col-6"><div class="skill-chip">HTML5</div></div>
+        <div class="col-md-3 col-6"><div class="skill-chip">CSS3 / SASS</div></div>
+        <div class="col-md-3 col-6"><div class="skill-chip">JavaScript (ES6+)</div></div>
+        <div class="col-md-3 col-6"><div class="skill-chip">Bootstrap 5</div></div>
+        <div class="col-md-3 col-6"><div class="skill-chip">React (Basics)</div></div>
+        <div class="col-md-3 col-6"><div class="skill-chip">Responsive Design</div></div>
+        <div class="col-md-3 col-6"><div class="skill-chip">Git & GitHub</div></div>
+        <div class="col-md-3 col-6"><div class="skill-chip">UI/UX Thinking</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="container pb-5" aria-label="Projects section">
+    <div class="glassy p-4 p-md-5 shadow-lg">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 mb-0"><i class="bi bi-kanban me-2" aria-hidden="true"></i>Projects</h2>
+        <a href="#" class="btn btn-sm btn-outline-light rounded-pill">Download Resume</a>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <article class="project-card glassy h-100 p-4" aria-labelledby="p1-title">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h3 id="p1-title" class="h5 mb-0">Portfolio Starter</h3>
+              <span class="badge rounded-pill glassy-badge">HTML • CSS • JS</span>
+            </div>
+            <p class="mb-3">A clean, responsive portfolio template with glassmorphism and micro-interactions.</p>
+            <div class="d-flex gap-2">
+              <a href="#" class="btn btn-primary btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1" aria-hidden="true"></i> Live</a>
+              <a href="#" class="btn btn-outline-light btn-sm rounded-pill"><i class="bi bi-github me-1" aria-hidden="true"></i> Code</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-6">
+          <article class="project-card glassy h-100 p-4" aria-labelledby="p2-title">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h3 id="p2-title" class="h5 mb-0">UI Components</h3>
+              <span class="badge rounded-pill glassy-badge">Bootstrap 5</span>
+            </div>
+            <p class="mb-3">Reusable cards, navbars, and modals optimized for accessibility and mobile.</p>
+            <div class="d-flex gap-2">
+              <a href="#" class="btn btn-primary btn-sm rounded-pill"><i class="bi bi-box-arrow-up-right me-1" aria-hidden="true"></i> Live</a>
+              <a href="#" class="btn btn-outline-light btn-sm rounded-pill"><i class="bi bi-github me-1" aria-hidden="true"></i> Code</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container pb-5" aria-label="Contact section">
+    <div class="glassy p-4 p-md-5 shadow-lg">
+      <h2 class="h4 mb-4"><i class="bi bi-send-check me-2" aria-hidden="true"></i>Contact</h2>
+      <form class="row g-3" onsubmit="handleSubmit(event)" aria-describedby="formMsg">
+        <div class="col-md-6">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-control glass-input" placeholder="Enter your name" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control glass-input" placeholder="name@example.com" required>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Message</label>
+          <textarea rows="4" class="form-control glass-input" placeholder="Say hello…" required></textarea>
+        </div>
+        <div class="col-12 d-flex gap-2">
+          <button class="btn btn-primary rounded-pill" type="submit"><i class="bi bi-send me-1" aria-hidden="true"></i>Send</button>
+          <button type="reset" class="btn btn-outline-light rounded-pill">Reset</button>
+        </div>
+        <p id="formMsg" class="small text-white-50 m-0" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="py-4 text-center text-white-50">
+    <small>© 2025 • Designed by Vishal B • Frontend Developer</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    let lightMode = false;
+    themeToggle?.addEventListener('click', () => {
+      lightMode = !lightMode;
+      themeToggle.setAttribute('aria-pressed', String(lightMode));
+      if (lightMode) {
+        document.documentElement.style.setProperty('--bg1', '#f5f7ff');
+        document.documentElement.style.setProperty('--bg2', '#dfe7ff');
+        document.body.style.background = 'radial-gradient(1200px 800px at 10% 10%, #eef2ff 0%, #f5f7ff 60%)';
+        themeIcon.className = 'bi bi-sun-fill';
+      } else {
+        document.documentElement.style.setProperty('--bg1', '#0d0f1a');
+        document.documentElement.style.setProperty('--bg2', '#1b1f3a');
+        document.body.style.background = 'radial-gradient(1200px 800px at 10% 10%, #1e243f 0%, #0d0f1a 60%)';
+        themeIcon.className = 'bi bi-moon-stars';
+      }
+    });
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const msg = document.getElementById('formMsg');
+      if(msg){
+        msg.textContent = 'Thanks! Your message has been captured.';
+      }
+      e.target.reset();
+    }
+
+    (function addFocusOutline(){
+      function handleFirstTab(e) {
+        if (e.key === 'Tab') {
+          document.documentElement.classList.add('show-focus-outline');
+          window.removeEventListener('keydown', handleFirstTab);
+        }
+      }
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+  </script>
+</body>
+</html>
